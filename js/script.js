@@ -15,14 +15,14 @@ $board.onclick = function (e) {
 
     $squareClicked = e.target;
 
-    if ( game.isPlaying() && game.getTurn() === 'human') {
+    if ( game.isPlaying() && game.turn === 'human') {
 
-        if (board.drawToken($squareClicked, 'O')) {
-            game.commitMove($squareClicked.className.slice(2), 'O');
+        if (board.drawToken($squareClicked, game.player.human)) {
+            game.commitMove($squareClicked.className.slice(2), game.player.human);
             state  = game.getCurrentState().slice();
             pcMove = getBestMove();
-            board.drawToken(pcMove, 'X');
-            game.commitMove(pcMove, 'X');
+            board.drawToken(pcMove, game.player.pc);
+            game.commitMove(pcMove, game.player.pc);
         }
     }
 

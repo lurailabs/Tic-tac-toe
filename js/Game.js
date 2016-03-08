@@ -2,32 +2,32 @@
  * Created by lurai on 6/3/16.
  */
 
-var Game = function(level, pc, human) {
+var Game = function(level , pc, human) {
 
     var board           = null;
     var turn            = 'human';
     var currentState    = [];    // null for empty square, 'X' or 'O' for other
     var playing         = true;
 
-    var level   = level || 3;
-    var pc      = pc || 'X';
-    var human   = human || 'O';
-
-    var getCurrentState = function() {
-        return currentState;
+    var player = {
+        human:  human || 'O',
+        pc:     pc || 'X'
     };
+
+    var level   = level || 3;
 
     var getBoard = function() {
         return board;
+    };
+
+    var getCurrentState = function() {
+        return currentState;
     };
 
     var isPlaying = function() {
         return playing;
     };
 
-    var getTurn = function() {
-        return turn;
-    };
 
     /**
      * Updates currentState with new move.
@@ -132,11 +132,12 @@ var Game = function(level, pc, human) {
     };
 
     return {
-        init:               init,
+        player:             player,
+        turn:               turn,
         isPlaying:          isPlaying,
-        getTurn:            getTurn,
-        getCurrentState:    getCurrentState,
         getBoard:           getBoard,
+        getCurrentState:    getCurrentState,
+        init:               init,
         commitMove:         commitMove,
         getPossibleMoves:   getPossibleMoves,
         checkTerminal:      checkTerminal
