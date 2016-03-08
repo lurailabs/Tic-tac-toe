@@ -4,28 +4,39 @@
 }
 
 table {
-    margin:             100px auto 0;
-    background-color:   bisque;
-    font-family:        'Permanent Marker', cursive;
+    margin:             10% auto 0;
+    background-color:   #e8cbaf;
+
 }
 
 table, tr, td {
-    border:             solid 20px red;
+    border:             solid 20px #8a6741;
     border-collapse:    separate;
     border-radius:      25px;
 }
 
 tr, td {
 
-    border:             solid 3px black;
+    border:             solid 3px #542e20;
     border-radius:      0;
+    background-color:   #f3f2c1;
+    transition:         background-color 2s;
 }
 
 td {
     width:              150px;
     height:             150px;
-    background-color:   white;
     text-align:         center;
+    color:              #132323;
+    font-family:        'Permanent Marker', cursive;
+    text-shadow:        3px 3px 8px rgba(173, 177, 190, 0.7);
     font-size:          10rem;
 }
+
+
+td.highlight {
+    background-color: #deddaf;
+}
+
+
 
