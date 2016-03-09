@@ -40,7 +40,11 @@
 }
 
 table {
-    margin:             5% auto 0;
+    /*margin:             5% auto 0;*/
+
+    position:           absolute;
+    top:                10%;
+    right:              53%;
     background-color:   #e8cbaf;
 
 
@@ -71,7 +75,7 @@ td {
 }
 
 td.highlight {
-    background-color: #deddaf;
+    background-color:   yellow;
 }
 
 .board-4x4  td {
@@ -80,12 +84,28 @@ td.highlight {
     font-size:          8rem;
 }
 
+.sweet-alert {
+    width:              350px;
+}
+
 #message {
-    font-family: 'Audiowide', cursive;
-    font-size:  8rem;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.37);
-    margin-top: 20px;
+
+    position:           absolute;
+    top:                20%;
+    right:              0;
+    width:              100%;
+    background-color:   rgba(255, 255, 255, 0.48);
+    color: #375d5d;
+    font-family:        'Audiowide', cursive;
+    font-size:          7rem;
+    text-align:         right;
+    padding-right:      5%;
+}
+
+@media (orientation:landscape) and (max-width: 1300px) {
+    #message {
+        font-size:      5rem;
+    }
 }
 
 

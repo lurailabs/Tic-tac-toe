@@ -15,6 +15,8 @@ var Game = function() {
     var currentState    = [];    // null for empty square, 'X' or 'O' for other
     var playing         = false;
     var level           = 3;
+    var winningPosition = [];
+    var winner          = null;
 
     var token = {
         human:  'O',
@@ -28,6 +30,8 @@ var Game = function() {
     var init = function() {
         board = new Board(level);
         board.drawBoard();
+        winningPosition = [];
+        winner = null;
         for (var i = 0; i < level*level; i++) {
             currentState[i] = null;
         }
@@ -47,6 +51,14 @@ var Game = function() {
 
     var getLevel = function() {
         return level;
+    };
+
+    var getWinningPosition = function() {
+        return winningPosition;
+    };
+
+    var getWinner = function() {
+        return winner;
     };
 
     var getToken = function(humanOrPc) {
@@ -126,7 +138,13 @@ var Game = function() {
             // check rows
             for (i = 0; i < state.length; i += level) {
                 tempArr = state.slice(i, i+level);
-                if ( result = checkArray(tempArr) ) return result;
+                winningPosition = [i, i+1, i+2];
+                if ( result = checkArray(tempArr) ) {
+                    winningPosition = [i, i+1, i+2];
+                    if (level === 4) winningPosition.push(i+3);
+                    winner = result;
+                    return result;
+                }
             }
             // check columns
             for (i = 0; i < level; i++) {
@@ -134,7 +152,11 @@ var Game = function() {
                 for (var j = i; j < state.length; j += level) {
                     tempArr.push(state[j]);
                 }
-                if ( result = checkArray(tempArr) ) return result;
+                if ( result = checkArray(tempArr) ) {
+                    winningPosition = level === 3 ? [i, i+3, i+6] : [i, i+4, i+8, i+12];
+                    winner = result;
+                    return result;
+                }
             }
 
             // check first diagonal
@@ -142,17 +164,29 @@ var Game = function() {
             for (i = 0; i < state.length; i = level+i+1) {
                 tempArr.push(state[i]);
             }
-            if ( result = checkArray(tempArr) ) return result;
+            if ( result = checkArray(tempArr) ) {
+                winningPosition = level=== 3 ? [0, 4, 8] : [0, 5, 10, 15];
+                winner = result;
+                return result;
+            }
 
             //check second diagonal
             tempArr = [];
             for (i = state.length-level; i > 0; i = i-level+1) {
                 tempArr.push(state[i]);
             }
-            if ( result = checkArray(tempArr) ) return result;
+            if ( result = checkArray(tempArr) ) {
+                winningPosition = level=== 3 ? [2, 4, 6] : [3, 6, 9, 12];
+                winner = result;
+                return result;
+            }
 
         }
-        if (numOfFullSquares === state.length) return 'tie';
+        if (numOfFullSquares === state.length) {
+            winningPosition = null;
+            winner = null;
+            return 'tie';
+        }
 
         return false;
 
@@ -174,6 +208,8 @@ var Game = function() {
     return {
         getToken:           getToken,
         getTurn:            getTurn,
+        getWinningPosition: getWinningPosition,
+        getWinner:          getWinner,
         getLevel:           getLevel,
         setLevel:           setLevel,
         setHuman:           setHuman,

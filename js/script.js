@@ -10,7 +10,21 @@ var $board      = document.getElementById('board');
 function endGame() {
 
     game.setPlaying(false);
-    $message.innerHTML = 'end';
+    var winningRow      = game.getWinningPosition();
+    var winner          = game.getWinner();
+
+    console.log('winningRow: ' + winningRow);
+    console.log('winner: ' + winner);
+
+    if (winner == game.getToken('pc'))          $message.innerHTML  = 'computer wins!!';
+    else if (winner == game.getToken('human'))  $message.innerHTML  = 'human wins!!';
+    else                                        $message.innerHTML  = 'this is a tie!!';
+
+    if (winningRow) {
+        for (var square = 0; square < winningRow.length; square++) {
+            board.highlightSquare(winningRow[square]);
+        }
+    }
 
     $board.onclick = function(e) {
         $message.innerHTML = 'Tic-tac-toe';
@@ -37,12 +51,12 @@ function pcTurn() {
 function startGame() {
 
     game    = new Game();
-    board   = game.getBoard();                      // board on game logic
-    state   = game.getCurrentState().slice();       // used by IA to try positions
+    board   = game.getBoard();                  // board on game logic
+    state   = game.getCurrentState().slice();   // copy of currentPosition used by IA to try positions
 
     if(!game.isPlaying()) {
 
-        /* Sweet Alert Modal: game options */
+        /* Sweet Alert Modal with game options */
 
         var text =  '<div id="X">X</div> <div id="or">or</div> <div id="O" class="active">O</div>' +
             '<h2>Board size</h2>' +

@@ -12,6 +12,7 @@
 var getBestMove = function() {
 
     var bestMove = function() {
+
         var possibleMoves = game.getPossibleMoves(state);
 
         // add a little randomness to list of possible moves order
