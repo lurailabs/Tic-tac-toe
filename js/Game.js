@@ -2,28 +2,33 @@
  * Created by lurai on 6/3/16.
  */
 
+/**
+ * Represents the game. All logic except best pc move.
+ *
+ * @constructor
+ */
+
 var Game = function() {
 
     var board           = null;
-    var turn            = 'human';
+    var turn            = 'pc';
     var currentState    = [];    // null for empty square, 'X' or 'O' for other
-    var playing         = true;
-    var level   = 3;
+    var playing         = false;
+    var level           = 3;
 
-    var player = {
+    var token = {
         human:  'O',
         pc:     'X'
     };
 
 
-
     /**
-     * Creates board, draws it on the screen, resets array with positions
+     * Creates board, draws it on the screen, resets positions array
      */
     var init = function() {
         board = new Board(level);
         board.drawBoard();
-        for (var i=0; i < level*level; i++) {
+        for (var i = 0; i < level*level; i++) {
             currentState[i] = null;
         }
     };
@@ -44,18 +49,32 @@ var Game = function() {
         return level;
     };
 
+    var getToken = function(humanOrPc) {
+        return token[humanOrPc];
+    };
+
     var setLevel = function(newLevel) {
         level = newLevel;
         init();
     };
 
-    var setHuman = function(token) {
-        player.human = token;
-        player.pc = token === 'X' ? 'O':'X';
+    var setHuman = function(newToken) {
+        token.human = newToken;
+        if (newToken === 'X') {
+            token.pc = 'O';
+            turn = 'human';
+        } else {
+            token.pc = 'X';
+            turn = 'pc';
+        }
     };
 
     var isPlaying = function() {
         return playing;
+    };
+
+    var setPlaying = function(mode) {
+        playing = mode;
     };
 
 
@@ -69,7 +88,8 @@ var Game = function() {
         currentState[position] = token;
         turn = turn === 'human' ? 'pc' : 'human';
         if (checkTerminal(currentState)) playing = false;
-    }; // commitMove()
+    };
+
 
     /**
      * Returns an array with the numbers of all empty squares
@@ -87,7 +107,7 @@ var Game = function() {
 
     /**
      * Checks if a given state is terminal.
-     * * @param state
+     * @param state
      *
      * @returns     false (is not terminal) / 'X' (X wins) / 'O' (O wins) / 'tie'
      */
@@ -100,9 +120,8 @@ var Game = function() {
             i,
             tempArr = [];
 
-        if (numOfFullSquares < level*2 - 1) return false;
-
-        if (numOfFullSquares >= level * 2 - 1) {  // at least one of the 2 players must have played x times
+        // at least one of the 2 players must have played 'level' times
+        if (numOfFullSquares >= level * 2 - 1) {
 
             // check rows
             for (i = 0; i < state.length; i += level) {
@@ -139,7 +158,6 @@ var Game = function() {
 
     };
 
-
     /**
      *  Aux function for checkTerminal()
      * @param   arr
@@ -154,15 +172,15 @@ var Game = function() {
 
 
     return {
-        player:             player,
+        getToken:           getToken,
         getTurn:            getTurn,
         getLevel:           getLevel,
         setLevel:           setLevel,
         setHuman:           setHuman,
         isPlaying:          isPlaying,
+        setPlaying:         setPlaying,
         getBoard:           getBoard,
         getCurrentState:    getCurrentState,
-        //init:               init,
         commitMove:         commitMove,
         getPossibleMoves:   getPossibleMoves,
         checkTerminal:      checkTerminal

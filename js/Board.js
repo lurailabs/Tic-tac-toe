@@ -11,8 +11,6 @@
  */
 var Board = function(level) {
 
-    var $board = document.getElementById('board');
-
     /**
      * Draws a level x level board on the screen
      */
@@ -40,8 +38,10 @@ var Board = function(level) {
      * Sets all board squares to null
      */
     var reset = function() {
+
         $board.innerHTML = '';
         drawBoard();
+
     }; // reset()
 
     /**
@@ -55,13 +55,14 @@ var Board = function(level) {
      */
     var drawToken = function($square, token) {
 
-        if (!isNaN($square)) {      // is a number
+        if (!isNaN($square)) {      // square number passed as argument
             $square = document.getElementsByClassName('c-' + $square)[0];
         }
 
         if ($square.innerHTML === '') {
             $square.innerHTML = token;
             return true;
+
         } else return false;
 
     }; // drawToken()
