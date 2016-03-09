@@ -2,19 +2,31 @@
  * Created by lurai on 6/3/16.
  */
 
-var Game = function(level , pc, human) {
+var Game = function() {
 
     var board           = null;
     var turn            = 'human';
     var currentState    = [];    // null for empty square, 'X' or 'O' for other
     var playing         = true;
+    var level   = 3;
 
     var player = {
-        human:  human || 'O',
-        pc:     pc || 'X'
+        human:  'O',
+        pc:     'X'
     };
 
-    var level   = level || 3;
+
+
+    /**
+     * Creates board, draws it on the screen, resets array with positions
+     */
+    var init = function() {
+        board = new Board(level);
+        board.drawBoard();
+        for (var i=0; i < level*level; i++) {
+            currentState[i] = null;
+        }
+    };
 
     var getBoard = function() {
         return board;
@@ -22,6 +34,24 @@ var Game = function(level , pc, human) {
 
     var getCurrentState = function() {
         return currentState;
+    };
+
+    var getTurn = function() {
+        return turn;
+    };
+
+    var getLevel = function() {
+        return level;
+    };
+
+    var setLevel = function(newLevel) {
+        level = newLevel;
+        init();
+    };
+
+    var setHuman = function(token) {
+        player.human = token;
+        player.pc = token === 'X' ? 'O':'X';
     };
 
     var isPlaying = function() {
@@ -120,24 +150,19 @@ var Game = function(level , pc, human) {
     }
 
 
-    /**
-     * Creates board, draws it on the screen, resets array with positions
-     */
-    var init = function() {
-        board = new Board(level);
-        board.drawBoard();
-        for (var i=0; i < level*level; i++) {
-            currentState[i] = null;
-        }
-    };
+    init();
+
 
     return {
         player:             player,
-        turn:               turn,
+        getTurn:            getTurn,
+        getLevel:           getLevel,
+        setLevel:           setLevel,
+        setHuman:           setHuman,
         isPlaying:          isPlaying,
         getBoard:           getBoard,
         getCurrentState:    getCurrentState,
-        init:               init,
+        //init:               init,
         commitMove:         commitMove,
         getPossibleMoves:   getPossibleMoves,
         checkTerminal:      checkTerminal

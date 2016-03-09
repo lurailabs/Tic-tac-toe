@@ -11,7 +11,6 @@
  */
 var Board = function(level) {
 
-    var level = level || 3;
     var $board = document.getElementById('board');
 
     /**

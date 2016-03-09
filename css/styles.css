@@ -1,11 +1,48 @@
 :root {
     font-size:          62.5%;
     background-color:   cadetblue;
+    margin: 0;
+    padding: 0;
+}
+
+#or {
+    display:            inline-block;
+    width:              80px;
+    font-size:          3rem;
+}
+
+#X, #O {
+    font-family:        'Permanent Marker', cursive;
+    color:              #464646;
+    font-size:          4rem;
+    display:            inline-block;
+    border:             solid 3px #542e20;
+    border-radius:      10px;
+    width:              50px;
+    height:             50px;
+}
+
+#level-3x3, #level-4x4 {
+    display:            inline-block;
+    color:              #464646;
+    width:              80px;
+    font-size:          3rem;
+    margin-right:       4rem;
+    margin-left:        4rem;
+    border:             solid 3px #542e20;
+    border-radius:      10px;
+}
+
+
+#X:hover, #O:hover, #level-3x3:hover, #level-4x4:hover, .active {
+    background-color:   #c4c39a;
+    cursor:             pointer;
 }
 
 table {
-    margin:             10% auto 0;
+    margin:             5% auto 0;
     background-color:   #e8cbaf;
+
 
 }
 
@@ -33,9 +70,14 @@ td {
     font-size:          10rem;
 }
 
-
 td.highlight {
     background-color: #deddaf;
+}
+
+.board-4x4  td {
+    width:              120px;
+    height:             120px;
+    font-size:          8rem;
 }
 
 
