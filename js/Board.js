@@ -68,10 +68,7 @@ var Board = function(level) {
     }; // drawToken()
 
     var highlightSquare = function(squareNumber) {
-        console.log('squareNumber: ' + squareNumber);
         var $square = document.getElementsByClassName('c-' + squareNumber)[0];
-        console.log('$square: ');
-        console.log(squareNumber);
         $square.classList.add('highlight');
     };
 

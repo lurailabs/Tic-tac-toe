@@ -20,6 +20,11 @@ var getBestMove = function() {
             return .5 - Math.random();
         });
 
+        // when pc plays first and is the first move, return random position
+        if (possibleMoves.length === game.getLevel()*game.getLevel()) {
+            return possibleMoves[0];
+        }
+
         var best = -10000;
         var aux;
         var position = possibleMoves[0];

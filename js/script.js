@@ -13,9 +13,6 @@ function endGame() {
     var winningRow      = game.getWinningPosition();
     var winner          = game.getWinner();
 
-    console.log('winningRow: ' + winningRow);
-    console.log('winner: ' + winner);
-
     if (winner == game.getToken('pc'))          $message.innerHTML  = 'computer wins!!';
     else if (winner == game.getToken('human'))  $message.innerHTML  = 'human wins!!';
     else                                        $message.innerHTML  = 'this is a tie!!';
@@ -129,8 +126,4 @@ function startGame() {
 
 } // startGame()
 
-
-
 startGame();
-
-
